@@ -279,6 +279,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
     }
 
     init {
+        title = "Trade"
         size = 9 * 6
     }
 
