@@ -1,0 +1,12 @@
+Prefix: "&5&lET &7// "
+# How many milliseconds should an action take before the lag is logged to console
+Log_Lag_Over_Milis: 100
+Locale: en
+
+# allow players to shift click each other to invite to trade
+Shift_Click_Trade: true
+# is trading money allowed? requires vault and a compatible economy plugin
+Economy_Enabled: true
+
+Debug: [ ]
+Version: 0
