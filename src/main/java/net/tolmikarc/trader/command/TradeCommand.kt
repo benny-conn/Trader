@@ -53,6 +53,10 @@ class TradeCommand : SimpleCommand("trade") {
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Initial commit
     override fun tabComplete(): List<String> {
         return when (args.size) {
             1 -> listOf("accept", "decline")
@@ -62,7 +66,11 @@ class TradeCommand : SimpleCommand("trade") {
 
     init {
         minArguments = 1
+<<<<<<< HEAD
         usage = "<player | accept | decline | return>"
         description = "Trade with another player or manage your invites"
+=======
+        usage = "<player | accept | decline>"
+>>>>>>> Initial commit
     }
 }
