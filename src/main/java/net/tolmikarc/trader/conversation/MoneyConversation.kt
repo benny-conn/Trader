@@ -1,6 +1,7 @@
 package net.tolmikarc.trader.conversation
 
 import net.tolmikarc.trader.menu.TradeMenu
+import net.tolmikarc.trader.settings.Localization
 import org.bukkit.conversations.ConversationAbandonedEvent
 import org.bukkit.conversations.ConversationContext
 import org.bukkit.conversations.Prompt
@@ -21,13 +22,13 @@ class MoneyConversation(val menu: TradeMenu) : SimpleConversation() {
     inner class MoneyPrompt : SimpleDecimalPrompt() {
         override fun getPrompt(ctx: ConversationContext?): String {
             player = getPlayer(ctx)
-            return "How much would you like to offer?"
+            return Localization.MONEY_PROMPT
         }
 
         override fun acceptValidatedInput(context: ConversationContext?, input: Double): Prompt? {
             player = getPlayer(context)
             if (HookManager.getBalance(player) - input < 0) {
-                tellBoxed(player, "Cannot input more money than you have")
+                tellBoxed(player, Localization.INVALID_AMOUNT)
                 return END_OF_CONVERSATION
             }
 

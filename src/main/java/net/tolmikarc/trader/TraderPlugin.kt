@@ -2,6 +2,7 @@ package net.tolmikarc.trader
 
 import net.tolmikarc.trader.command.TradeCommand
 import net.tolmikarc.trader.listener.PlayerListener
+import net.tolmikarc.trader.settings.Localization
 import net.tolmikarc.trader.settings.Settings
 import net.tolmikarc.trader.task.CooldownTask
 import org.mineacademy.fo.Common
@@ -20,7 +21,7 @@ class TraderPlugin : SimplePlugin() {
 
 
     override fun getSettings(): List<Class<out YamlStaticConfig?>> {
-        return listOf(Settings::class.java)
+        return listOf(Settings::class.java, Localization::class.java)
     }
 
     override fun getFoundedYear(): Int {

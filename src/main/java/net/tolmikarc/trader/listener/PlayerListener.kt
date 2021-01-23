@@ -2,6 +2,7 @@ package net.tolmikarc.trader.listener
 
 import net.tolmikarc.trader.PlayerCache
 import net.tolmikarc.trader.menu.TradeMenu
+import net.tolmikarc.trader.settings.Localization
 import net.tolmikarc.trader.settings.Settings
 import net.tolmikarc.trader.task.CooldownTask
 import net.tolmikarc.trader.task.CooldownTask.Companion.addCooldownTimer
@@ -28,9 +29,9 @@ class PlayerListener : Listener {
         otherPlayerCache.tradeInvite = player
         Messenger.info(
             otherPlayer,
-            "You have received an invite to trade from ${player.name}. Type /trade accept to accept or /trade decline to decline"
+            Localization.INVITE_NOTIFICATION.replace("{player}", player.displayName)
         )
-        Messenger.success(player, "Successfully sent trade invite to ${otherPlayer.name}")
+        Messenger.success(player, Localization.TRADE_SENT.replace("{player}", otherPlayer.displayName))
         addCooldownTimer(player, CooldownTask.CooldownType.TRADE)
     }
 

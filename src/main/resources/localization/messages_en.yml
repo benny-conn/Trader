@@ -1,1 +1,29 @@
 Version: 0
+
+
+No_Pending_Invite: "You do not have a pending trade invite"
+Decline: "Declined any pending trade invites"
+Decline_Notification: "{player} declined your request to trade."
+Inventory_Space: "You do not have enough inventory slots to complete this transaction. Please clear inventory slots and use /trade return to get your items back."
+Return_Complete: "Completed return!"
+Trade_Sent: "Successfully sent trade invite to {player}"
+Invite_Notification: "You have received an invite to trade from {player}. Type /trade accept to accept or /trade decline to decline"
+Command_Description: "Trade with another player"
+Money_Prompt: "How much would you like to offer?"
+Invalid_Amount: "Cannot input more money than you have"
+Menu:
+  Title: "Trade"
+  Cancel: "&4&lCancel Transaction"
+  Cancelled: "Transaction cancelled."
+  Success: "Trade complete!"
+  Not_Confirmed: "&c&lClick to Confirm!"
+  Confirm_Button_Title: "&a&lConfirmed!"
+  Confirm_Button_Lore:
+    - ""
+    - "When both offers"
+    - "are accepted"
+    - "trade will be complete"
+  Money_Button_Title: "&a&lTrade Money"
+  Money_Button_Lore:
+    - ""
+    - "Current Trade: {amount}"

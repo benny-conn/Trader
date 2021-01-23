@@ -2,6 +2,7 @@ package net.tolmikarc.trader.menu
 
 import net.tolmikarc.trader.PlayerCache
 import net.tolmikarc.trader.conversation.MoneyConversation
+import net.tolmikarc.trader.settings.Localization
 import net.tolmikarc.trader.settings.Settings
 import net.tolmikarc.trader.util.PlayerUtil
 import org.bukkit.Material
@@ -58,7 +59,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
         }
 
         override fun getItem(): ItemStack {
-            return ItemCreator.of(CompMaterial.REDSTONE_BLOCK, "&4&lCancel Transaction").build().make()
+            return ItemCreator.of(CompMaterial.REDSTONE_BLOCK, Localization.Menu.CANCEL).build().make()
         }
     }
 
@@ -78,7 +79,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
             if (PlayerUtil.invFull(firstPlayer)) {
                 Messenger.error(
                     firstPlayer,
-                    "You do not have enough inventory slots to complete this transaction. Please clear inventory slots and use /trade return to get your items back."
+                    Localization.INVENTORY_SPACE
                 )
                 break
             }
@@ -90,7 +91,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
             if (PlayerUtil.invFull(secondPlayer)) {
                 Messenger.error(
                     secondPlayer,
-                    "You do not have enough inventory slots to complete this transaction. Please clear inventory slots and use /trade return to get your items back."
+                    Localization.INVENTORY_SPACE
                 )
                 break
             }
@@ -108,8 +109,8 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
         secondPlayerCache.isTrading = false
         firstPlayerCache.saveItems()
         secondPlayerCache.saveItems()
-        Messenger.success(firstPlayer, "Trade complete!")
-        Messenger.success(secondPlayer, "Trade complete!")
+        Messenger.success(firstPlayer, Localization.Menu.SUCCESS)
+        Messenger.success(secondPlayer, Localization.Menu.SUCCESS)
     }
 
 
@@ -136,7 +137,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
             if (PlayerUtil.invFull(firstPlayer)) {
                 Messenger.error(
                     firstPlayer,
-                    "You do not have enough inventory slots to complete this transaction. Please clear inventory slots and use /trade return to get your items back."
+                    Localization.INVENTORY_SPACE
                 )
                 break
             }
@@ -148,7 +149,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
             if (PlayerUtil.invFull(secondPlayer)) {
                 Messenger.error(
                     secondPlayer,
-                    "You do not have enough inventory slots to complete this transaction. Please clear inventory slots and use /trade return to get your items back."
+                    Localization.INVENTORY_SPACE
                 )
                 break
             }
@@ -163,8 +164,8 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
         secondPlayerCache.isTrading = false
         firstPlayerCache.saveItems()
         secondPlayerCache.saveItems()
-        Messenger.info(firstPlayer, "Transaction cancelled.")
-        Messenger.info(secondPlayer, "Transaction cancelled.")
+        Messenger.info(firstPlayer, Localization.Menu.CANCELLED)
+        Messenger.info(secondPlayer, Localization.Menu.CANCELLED)
     }
 
     override fun isActionAllowed(
@@ -279,7 +280,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
     }
 
     init {
-        title = "Trade"
+        title = Localization.Menu.TITLE
         size = 9 * 6
     }
 
@@ -313,50 +314,48 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
                 if (firstPlayerConfirmed) {
                     ItemCreator.of(
                         CompMaterial.GLOWSTONE,
-                        "&a&lConfirmed!",
-                        "",
-                        "When both offers",
-                        "are accepted",
-                        "trade will be complete"
+                        Localization.Menu.CONFIRM_BUTTON_TITLE,
+                        Localization.Menu.CONFIRM_BUTTON_LORE
                     ).build().make()
                 } else
-                    ItemCreator.of(CompMaterial.REDSTONE_LAMP, "&c&lClick to Confirm!").build().make()
+                    ItemCreator.of(CompMaterial.REDSTONE_LAMP, Localization.Menu.NOT_CONFIRMED).build().make()
             } else if (secondPlayerConfirmed) {
                 ItemCreator.of(
                     CompMaterial.GLOWSTONE,
-                    "&a&lConfirmed!",
-                    "",
-                    "When both offers",
-                    "are accepted",
-                    "trade will be complete"
+                    Localization.Menu.CONFIRM_BUTTON_TITLE,
+                    Localization.Menu.CONFIRM_BUTTON_LORE
                 ).build().make()
             } else
-                ItemCreator.of(CompMaterial.REDSTONE_LAMP, "&c&lClick to Confirm!").build().make()
+                ItemCreator.of(CompMaterial.REDSTONE_LAMP, Localization.Menu.NOT_CONFIRMED).build().make()
 
         }
 
     }
 
     inner class MoneyButton(private val owningPlayer: Player) : Button() {
+
+
         override fun onClickedInMenu(player: Player, p1: Menu, p2: ClickType) {
             player.closeInventory()
             MoneyConversation(this@TradeMenu).start(player)
         }
 
         override fun getItem(): ItemStack {
+            val firstLore =
+                Localization.Menu.MONEY_BUTTON_LORE.map { it.replace("{amount}", firstPlayerMoney.toMoneyFormat()) }
+            val secondLore =
+                Localization.Menu.MONEY_BUTTON_LORE.map { it.replace("{amount}", secondPlayerMoney.toMoneyFormat()) }
             return if (owningPlayer == firstPlayer) {
                 ItemCreator.of(
                     CompMaterial.EMERALD,
-                    "&a&lTrade Money",
-                    "",
-                    "Current Trade: ${firstPlayerMoney.toMoneyFormat()}"
+                    Localization.Menu.MONEY_BUTTON_TITLE,
+                    firstLore
                 ).build().make()
             } else {
                 ItemCreator.of(
                     CompMaterial.EMERALD,
-                    "&a&lTrade Money",
-                    "",
-                    "Current Trade: ${secondPlayerMoney.toMoneyFormat()}"
+                    Localization.Menu.MONEY_BUTTON_TITLE,
+                    secondLore
                 ).build().make()
             }
 
