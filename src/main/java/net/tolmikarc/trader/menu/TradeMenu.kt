@@ -219,11 +219,13 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
             } else {
                 if (isConfirmed(player)) return
                 if (IntRange(0, 4).any { (slot - it) % 9 == 0 } && player == firstPlayer) {
+                    if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) return
                     itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
                     removeAndSave(clicked, player)
                     player.setItemOnCursor(clicked)
                 }
                 if (IntRange(4, 9).any { (slot - it) % 9 == 0 } && player == secondPlayer) {
+                    if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) return
                     itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
                     removeAndSave(clicked, player)
                     player.setItemOnCursor(clicked)
