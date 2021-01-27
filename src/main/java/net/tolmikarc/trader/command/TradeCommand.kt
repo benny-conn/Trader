@@ -69,5 +69,6 @@ class TradeCommand : SimpleCommand("trade") {
         minArguments = 1
         usage = "<player | accept | decline>"
         description = Localization.COMMAND_DESCRIPTION
+        permission = null
     }
 }
