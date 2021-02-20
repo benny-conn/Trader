@@ -7,6 +7,9 @@ Locale: en
 Shift_Click_Trade: true
 # is trading money allowed? requires vault and a compatible economy plugin
 Economy_Enabled: true
+# true -> lock the trading menu from being changed when one party confirms transaction
+# false -> only lock the portion of the menu for the party that confirmed
+Lock_On_Confirm: false
 
 Debug: [ ]
 Version: 0
