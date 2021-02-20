@@ -70,6 +70,10 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
             secondPlayerConfirmed
     }
 
+    private fun isEitherConfirmed(): Boolean {
+        return firstPlayerConfirmed || secondPlayerConfirmed
+    }
+
 
     private fun tradeItems() {
         val firstIterator = secondPlayerTrade.iterator()
@@ -190,8 +194,12 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
         if (getButton(clicked) != null) return
         if (clicked != null && cursor != null) {
             if (action == InventoryAction.SWAP_WITH_CURSOR) {
-                if (isConfirmed(player)) return
-                if (IntRange(0, 4).any { (slot - it) % 9 == 0 } && player == firstPlayer) {
+                if (Settings.LOCK_ON_CONFIRM) {
+                    if (isEitherConfirmed()) return
+                } else {
+                    if (isConfirmed(player)) return
+                }
+                if (player == firstPlayer && IntRange(0, 3).any { (slot - it) % 9 == 0 }) {
                     if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) {
                         itemSlotMap[slot] = cursor
                         addAndSave(cursor, player)
@@ -202,9 +210,8 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
                         player.inventory.addItem(clicked)
                         clicked.type = Material.GRAY_STAINED_GLASS_PANE
                     }
-
                 }
-                if (IntRange(4, 9).any { (slot - it) % 9 == 0 } && player == secondPlayer) {
+                if (player == secondPlayer && IntRange(5, 8).any { (slot - it) % 9 == 0 }) {
                     if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) {
                         itemSlotMap[slot] = cursor
                         addAndSave(cursor, player)
@@ -217,14 +224,18 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
                     }
                 }
             } else {
-                if (isConfirmed(player)) return
-                if (IntRange(0, 4).any { (slot - it) % 9 == 0 } && player == firstPlayer) {
+                if (Settings.LOCK_ON_CONFIRM) {
+                    if (isEitherConfirmed()) return
+                } else {
+                    if (isConfirmed(player)) return
+                }
+                if (IntRange(0, 3).any { (slot - it) % 9 == 0 } && player == firstPlayer) {
                     if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) return
                     itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
                     removeAndSave(clicked, player)
                     player.setItemOnCursor(clicked)
                 }
-                if (IntRange(4, 9).any { (slot - it) % 9 == 0 } && player == secondPlayer) {
+                if (IntRange(5, 8).any { (slot - it) % 9 == 0 } && player == secondPlayer) {
                     if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) return
                     itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
                     removeAndSave(clicked, player)
