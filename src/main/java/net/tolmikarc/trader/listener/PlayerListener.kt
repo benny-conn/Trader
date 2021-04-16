@@ -7,7 +7,6 @@ import net.tolmikarc.trader.settings.Settings
 import net.tolmikarc.trader.task.CooldownTask
 import net.tolmikarc.trader.task.CooldownTask.Companion.addCooldownTimer
 import net.tolmikarc.trader.task.CooldownTask.Companion.hasCooldown
-import org.bukkit.entity.NPC
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -23,7 +22,7 @@ class PlayerListener : Listener {
         if (!Settings.SHIFT_CLICK_TRADE) return
         val player = e.player
 
-        if (player.hasMetadata("NPC") || player is NPC) return
+        if (player.hasMetadata("NPC")) return
 
         if (hasCooldown(player, CooldownTask.CooldownType.TRADE)) return
         if (!player.isSneaking) return
