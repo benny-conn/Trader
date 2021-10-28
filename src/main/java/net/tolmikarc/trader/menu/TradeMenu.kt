@@ -305,7 +305,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
         }
 
         override fun getItem(): ItemStack {
-            return ItemCreator.of(CompMaterial.PLAYER_HEAD).build().makeSkull(playerName)
+            return ItemCreator.of(CompMaterial.PLAYER_HEAD).skullOwner(playerName).build().make()
         }
     }
 
