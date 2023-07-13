@@ -6,12 +6,13 @@ import net.tolmikarc.trader.settings.Localization
 import net.tolmikarc.trader.util.PlayerUtil
 import org.mineacademy.fo.Messenger
 import org.mineacademy.fo.command.SimpleCommand
+import java.util.*
 
 class TradeCommand : SimpleCommand("trade") {
     override fun onCommand() {
 
         val playerCache = PlayerCache.getCache(player)
-        when (args[0].toLowerCase()) {
+        when (args[0].lowercase()) {
             "accept" -> {
                 checkNotNull(playerCache.tradeInvite, Localization.NO_PENDING_INVITE)
                 playerCache.tradeInvite?.let {

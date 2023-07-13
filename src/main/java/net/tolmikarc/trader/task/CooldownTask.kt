@@ -25,7 +25,7 @@ class CooldownTask : BukkitRunnable() {
 
     companion object {
 
-        fun Int.toMilis(): Long {
+        private fun Int.toMilis(): Long {
             return (this * 1000).toLong()
         }
 
@@ -43,17 +43,10 @@ class CooldownTask : BukkitRunnable() {
             val cooldown = AbstractMap.SimpleEntry(entity, type)
             return cooldowns.containsKey(cooldown)
         }
-
-
-        fun getCooldownRemaining(entity: Player, type: CooldownType): Int {
-            val cooldown = AbstractMap.SimpleEntry(entity, type)
-            return if (cooldowns.containsKey(cooldown)) ((cooldowns[cooldown]!! - System.currentTimeMillis()) / 1000L).toInt() else 0
-        }
     }
 
     enum class CooldownType(val seconds: Int) {
         TRADE(1)
     }
-
 
 }

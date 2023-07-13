@@ -59,7 +59,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
         }
 
         override fun getItem(): ItemStack {
-            return ItemCreator.of(CompMaterial.REDSTONE_BLOCK, Localization.Menu.CANCEL).build().make()
+            return ItemCreator.of(CompMaterial.REDSTONE_BLOCK, Localization.Menu.CANCEL).make()
         }
     }
 
@@ -200,28 +200,10 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
                     if (isConfirmed(player)) return
                 }
                 if (player == firstPlayer && IntRange(0, 3).any { (slot - it) % 9 == 0 }) {
-                    if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) {
-                        itemSlotMap[slot] = cursor
-                        addAndSave(cursor, player)
-                        player.setItemOnCursor(null)
-                    } else {
-                        itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
-                        removeAndSave(clicked, player)
-                        player.inventory.addItem(clicked)
-                        clicked.type = Material.GRAY_STAINED_GLASS_PANE
-                    }
+                    swapItem(clicked, slot, cursor, player)
                 }
                 if (player == secondPlayer && IntRange(5, 8).any { (slot - it) % 9 == 0 }) {
-                    if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) {
-                        itemSlotMap[slot] = cursor
-                        addAndSave(cursor, player)
-                        player.setItemOnCursor(null)
-                    } else {
-                        itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
-                        removeAndSave(clicked, player)
-                        player.inventory.addItem(clicked)
-                        clicked.type = Material.GRAY_STAINED_GLASS_PANE
-                    }
+                    swapItem(clicked, slot, cursor, player)
                 }
             } else {
                 if (Settings.LOCK_ON_CONFIRM) {
@@ -230,19 +212,42 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
                     if (isConfirmed(player)) return
                 }
                 if (IntRange(0, 3).any { (slot - it) % 9 == 0 } && player == firstPlayer) {
-                    if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) return
-                    itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
-                    removeAndSave(clicked, player)
-                    player.setItemOnCursor(clicked)
+                    takeBackItem(clicked, slot, player)
                 }
                 if (IntRange(5, 8).any { (slot - it) % 9 == 0 } && player == secondPlayer) {
-                    if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) return
-                    itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
-                    removeAndSave(clicked, player)
-                    player.setItemOnCursor(clicked)
+                    takeBackItem(clicked, slot, player)
                 }
             }
             restartMenu()
+        }
+    }
+
+    private fun takeBackItem(
+        clicked: ItemStack,
+        slot: Int,
+        player: Player
+    ) {
+        if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) return
+        itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
+        removeAndSave(clicked, player)
+        player.setItemOnCursor(clicked)
+    }
+
+    private fun swapItem(
+        clicked: ItemStack,
+        slot: Int,
+        cursor: ItemStack,
+        player: Player
+    ) {
+        if (clicked.type == Material.GRAY_STAINED_GLASS_PANE) {
+            itemSlotMap[slot] = cursor
+            addAndSave(cursor, player)
+            player.setItemOnCursor(null)
+        } else {
+            itemSlotMap[slot] = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
+            removeAndSave(clicked, player)
+            player.inventory.addItem(clicked)
+            clicked.type = Material.GRAY_STAINED_GLASS_PANE
         }
     }
 
@@ -305,7 +310,7 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
         }
 
         override fun getItem(): ItemStack {
-            return ItemCreator.of(CompMaterial.PLAYER_HEAD).skullOwner(playerName).build().make()
+            return ItemCreator.of(CompMaterial.PLAYER_HEAD).skullOwner(playerName).make()
         }
     }
 
@@ -329,17 +334,17 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
                         CompMaterial.GLOWSTONE,
                         Localization.Menu.CONFIRM_BUTTON_TITLE,
                         Localization.Menu.CONFIRM_BUTTON_LORE
-                    ).build().make()
+                    ).make()
                 } else
-                    ItemCreator.of(CompMaterial.REDSTONE_LAMP, Localization.Menu.NOT_CONFIRMED).build().make()
+                    ItemCreator.of(CompMaterial.REDSTONE_LAMP, Localization.Menu.NOT_CONFIRMED).make()
             } else if (secondPlayerConfirmed) {
                 ItemCreator.of(
                     CompMaterial.GLOWSTONE,
                     Localization.Menu.CONFIRM_BUTTON_TITLE,
                     Localization.Menu.CONFIRM_BUTTON_LORE
-                ).build().make()
+                ).make()
             } else
-                ItemCreator.of(CompMaterial.REDSTONE_LAMP, Localization.Menu.NOT_CONFIRMED).build().make()
+                ItemCreator.of(CompMaterial.REDSTONE_LAMP, Localization.Menu.NOT_CONFIRMED).make()
 
         }
 
@@ -363,13 +368,13 @@ class TradeMenu(val firstPlayer: Player, val secondPlayer: Player) : Menu() {
                     CompMaterial.EMERALD,
                     Localization.Menu.MONEY_BUTTON_TITLE,
                     firstLore
-                ).build().make()
+                ).make()
             } else {
                 ItemCreator.of(
                     CompMaterial.EMERALD,
                     Localization.Menu.MONEY_BUTTON_TITLE,
                     secondLore
-                ).build().make()
+                ).make()
             }
 
         }

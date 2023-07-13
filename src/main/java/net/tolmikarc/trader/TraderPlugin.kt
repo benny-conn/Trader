@@ -15,13 +15,7 @@ class TraderPlugin : SimplePlugin() {
         registerEvents(PlayerListener())
         registerCommand(TradeCommand())
         Common.runTimerAsync(20, CooldownTask())
-        Common.ADD_TELL_PREFIX = true
         Common.log("Registered Commands, Events, and Tasks successfully.")
-    }
-
-
-    override fun getSettings(): List<Class<out YamlStaticConfig?>> {
-        return listOf(Settings::class.java, Localization::class.java)
     }
 
     override fun getFoundedYear(): Int {

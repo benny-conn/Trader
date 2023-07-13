@@ -6,20 +6,19 @@
 
     <groupId>net.tolmikarc</groupId>
     <artifactId>Trader</artifactId>
-    <version>1.0.12</version>
+    <version>1.0.14</version>
 
     <properties>
 
         <main.class>net.tolmikarc.trader.TraderPlugin</main.class>
 
-        <foundation.version>5.11.2</foundation.version>
+        <foundation.version>6.4.5</foundation.version>
 
-        <java.version>11</java.version>
-        <kotlin.compiler.languageVersion>1.5</kotlin.compiler.languageVersion>
+        <java.version>17</java.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.5.31</kotlin.version>
-        <spigot.version>1.17.1-R0.1-SNAPSHOT</spigot.version>
+        <kotlin.version>1.9.0</kotlin.version>
+        <spigot.version>1.20.1-R0.1-SNAPSHOT</spigot.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     </properties>
 
@@ -97,7 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -145,8 +144,8 @@
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
                 <executions>
                     <execution>
@@ -172,7 +171,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <executions>
                     <execution>
                         <id>default-compile</id>
